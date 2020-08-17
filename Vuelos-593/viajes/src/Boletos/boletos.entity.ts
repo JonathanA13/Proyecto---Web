@@ -1,13 +1,17 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Double, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {type} from "os";
 
 @Entity()
 export class BoletosEntity {
     @PrimaryGeneratedColumn()
     id_Boleto:number
     @Column()
-    fecha_salida: Date
+    fecha_salida?: Date
+    @Column({
+        name: 'costo',
+        type: 'double',
+    })
+    costo_boleto?: Double
     @Column()
-    costo_boleto: Float64Array
-    @Column()
-    puerta_abordaje:string
+    puerta_abordaje?:string
 }
