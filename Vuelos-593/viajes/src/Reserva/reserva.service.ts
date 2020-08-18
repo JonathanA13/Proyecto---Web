@@ -1,14 +1,14 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {RolEntity} from "./rol.entity";
+import {ReservaEntity} from "./reserva.entity";
 import {Repository} from "typeorm";
 
 @Injectable()
 
-export class RolService {
+export class ReservaService {
     constructor(
-        @InjectRepository(RolEntity)
-        private repositorio: Repository<RolEntity>
+        @InjectRepository(ReservaEntity)
+        private repositorio: Repository<ReservaEntity>
     ) {
     }
 }
