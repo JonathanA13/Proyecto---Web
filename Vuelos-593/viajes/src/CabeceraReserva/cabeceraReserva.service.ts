@@ -11,4 +11,24 @@ export class CabeceraReservaService {
         private repositorio: Repository<CabeceraReservaEntity>
     ) {
     }
+
+    crearUno(nuevoCabecera: CabeceraReservaEntity){
+        return this.repositorio.save(nuevoCabecera)
+    }
+
+    buscarTodos(){
+        return this.repositorio.find()
+    }
+
+    buscarUno(id: number){
+        return this.repositorio.findOne(id)
+    }
+
+    editarUno(cabeceraEditado: CabeceraReservaEntity){
+        return this.repositorio.save(cabeceraEditado)
+    }
+
+    eliminarUno(id: number){
+        return this.repositorio.delete(id)
+    }
 }
