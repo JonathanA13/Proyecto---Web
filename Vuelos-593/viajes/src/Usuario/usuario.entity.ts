@@ -1,4 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {RolUsuarioEntity} from "../RolUsuario/rolUsuario.entity";
+import {CabeceraReservaEntity} from "../CabeceraReserva/cabeceraReserva.entity";
 
 @Entity('Usuario')
 export class UsuarioEntity {
@@ -20,5 +22,17 @@ export class UsuarioEntity {
 
     @Column()
     contrasenia: string
+
+    @OneToMany(
+        type => RolUsuarioEntity,
+        rolUsuario => rolUsuario.usuario
+    )
+    rolUsuarios: RolUsuarioEntity[];
+
+    @OneToMany(
+        type => CabeceraReservaEntity,
+        cabeceraReserva => cabeceraReserva.usuario
+    )
+    cabeceraReservas: CabeceraReservaEntity[];
 
 }

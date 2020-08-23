@@ -1,4 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {CabeceraReservaEntity} from "../CabeceraReserva/cabeceraReserva.entity";
+import {AsientoEntity} from "../Asientos/asiento.entity";
 
 @Entity()
 export class ReservaEntity {
@@ -14,4 +16,15 @@ export class ReservaEntity {
     @Column()
     hora_abordaje: string
 
+    @ManyToOne(
+        type => CabeceraReservaEntity,
+        cabeceraReserva => cabeceraReserva.reservas
+    )
+    cabeceraReserva: CabeceraReservaEntity;
+
+    @ManyToOne(
+        type => AsientoEntity,
+        asiento => asiento.reservas
+    )
+    asiento: AsientoEntity;
 }
