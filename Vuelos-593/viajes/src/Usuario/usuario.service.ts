@@ -11,4 +11,6 @@ export class UsuarioService {
         private repositorio:Repository<UsuarioEntity>
     ) {
     }
+
+
 }
