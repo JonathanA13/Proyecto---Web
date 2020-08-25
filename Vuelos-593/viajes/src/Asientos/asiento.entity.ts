@@ -1,6 +1,11 @@
+
 import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {BoletosEntity} from "../Boletos/boletos.entity";
 import {VueloEntity} from "../Vuelo/vuelo.entity";
+
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {ReservaEntity} from "../Reserva/reserva.entity";
+
 
 @Entity()
 export class AsientoEntity {
@@ -12,6 +17,7 @@ export class AsientoEntity {
     tipo_asiento:string
 
     @OneToMany(
+
         type=>BoletosEntity,
         boleto=>boleto.asiento
     )
@@ -21,5 +27,6 @@ export class AsientoEntity {
     vuelo=>vuelo.asientos
 )
     vuelo:VueloEntity
+
 
 }

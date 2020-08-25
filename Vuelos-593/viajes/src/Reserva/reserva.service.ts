@@ -11,4 +11,24 @@ export class ReservaService {
         private repositorio: Repository<ReservaEntity>
     ) {
     }
+
+    crearUno(nuevoReserva: ReservaEntity){
+        return this.repositorio.save(nuevoReserva)
+    }
+
+    buscarTodos(){
+        return this.repositorio.find()
+    }
+
+    buscarUno(id: number){
+        return this.repositorio.findOne(id)
+    }
+
+    editarUno(reservaEditado: ReservaEntity){
+        return this.repositorio.save(reservaEditado)
+    }
+
+    eliminarUno(id: number){
+        return this.repositorio.delete(id)
+    }
 }
