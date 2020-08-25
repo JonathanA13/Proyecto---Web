@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BoletosEntity} from "../Boletos/boletos.entity";
 
 @Entity()
 export class PagosEntity {
@@ -16,4 +17,10 @@ export class PagosEntity {
 
     @Column()
     fecha_caducidad:Date
+
+    @ManyToOne(
+        type => BoletosEntity,
+        boleto=>boleto.pagos
+    )
+    boleto:BoletosEntity
 }
