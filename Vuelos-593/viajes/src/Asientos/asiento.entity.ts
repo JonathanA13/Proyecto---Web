@@ -3,8 +3,7 @@ import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "type
 import {BoletosEntity} from "../Boletos/boletos.entity";
 import {VueloEntity} from "../Vuelo/vuelo.entity";
 
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {ReservaEntity} from "../Reserva/reserva.entity";
+
 
 
 @Entity()
