@@ -1,6 +1,7 @@
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {VueloEntity} from "../Vuelo/vuelo.entity";
 
+
 @Entity()
 export class EscalasEntity {
     @PrimaryGeneratedColumn()
@@ -12,9 +13,11 @@ export class EscalasEntity {
     @Column()
     tiempo_escala:string
 
-    @ManyToOne(
+  @ManyToOne(
         type => VueloEntity,
         vuelo=>vuelo.escalas
     )
-    vuelo:VueloEntity
+    vuelo:VueloEntity;
+
+
 }

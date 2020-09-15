@@ -2,7 +2,7 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {RolUsuarioEntity} from "../RolUsuario/rolUsuario.entity";
 import {CabeceraReservaEntity} from "../CabeceraReserva/cabeceraReserva.entity";
 
-@Entity('Usuario')
+@Entity('usuario')
 export class UsuarioEntity {
 
     @PrimaryGeneratedColumn()
