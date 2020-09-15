@@ -4,6 +4,7 @@ import {BoletosEntity} from "../Boletos/boletos.entity";
 import {BoletosService} from "../Boletos/boletos.service";
 import {VueloService} from "./vuelo.service";
 import {VueloEntity} from "./vuelo.entity";
+import {VueloController} from "./vuelo.controller";
 
 @Module(
     {
@@ -11,7 +12,7 @@ import {VueloEntity} from "./vuelo.entity";
             TypeOrmModule.forFeature([VueloEntity], 'default')
         ],
         controllers: [
-
+                VueloController
         ],
         providers:[
             VueloService

@@ -1,12 +1,14 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Double, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {BoletosEntity} from "../Boletos/boletos.entity";
 
 @Entity()
 export class PagosEntity {
     @PrimaryGeneratedColumn()
     id_Pago:number
-    @Column()
-    monto_total:Float64Array
+    @Column({
+        type: 'double',
+    })
+    monto_total?: Double
     @Column()
     tipo_pago:string
     @Column()

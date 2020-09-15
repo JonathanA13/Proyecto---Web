@@ -2,6 +2,7 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {AsientoEntity} from "../Asientos/asiento.entity";
 import {EscalasEntity} from "../Escalas/escalas.entity";
 
+
 @Entity()
 export class VueloEntity {
     @PrimaryGeneratedColumn()
@@ -18,16 +19,20 @@ export class VueloEntity {
     @Column()
     tipo_vuelo:string
 
-    @OneToMany(
+   @OneToMany(
         type => AsientoEntity,
         asiento=>asiento.vuelo
     )
     asientos:AsientoEntity[]
 
+
+
     @OneToMany(
         type => EscalasEntity,
-        escala=>escala.vuelo
+        escala => escala.vuelo
     )
-    escalas:EscalasEntity[]
+    escalas: EscalasEntity[];
+
+
 
 }
