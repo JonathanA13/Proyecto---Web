@@ -6,7 +6,7 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put
+    Post, Put, Res
 } from "@nestjs/common";
 
 import {VueloService} from "./vuelo.service";
@@ -126,6 +126,21 @@ export class VueloController {
                 }
             )
         }
+    }
+
+    @Get('vista/viajes')
+    viajes(
+        @Res() res
+    ){
+        res.render('vuelo/viajes')
+    }
+
+    @Post('viajesVista')
+    viajesVista(
+        @Body() paramentroscuerpo,
+        @Res() res
+    ){
+
     }
 
 }
