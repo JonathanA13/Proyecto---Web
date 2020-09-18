@@ -7,7 +7,13 @@ export class RolEntity {
     @PrimaryGeneratedColumn()
     id_rol: number
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     tipo_rol: string
 
     @OneToMany(

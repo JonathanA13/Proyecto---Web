@@ -14,7 +14,13 @@ export class BoletosEntity {
         type: 'double',
     })
     costo_boleto?: Double
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     puerta_abordaje?:string
 
     @ManyToOne(

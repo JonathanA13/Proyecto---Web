@@ -1,0 +1,42 @@
+
+<h1>ADMINSITRAR VIAJES</h1>
+<%- include('../compartido/menu/menuAdmin')%>
+
+<table>
+<!--table row-->
+<tr>
+    <!--table header-->
+    <th>Asientos Disponibles</th>
+    <th>Asientos Ocupados</th>
+    <th>Origen</th>
+    <th>Destino</th>
+    <th>Estado de vuelo</th>
+    <th>Tipo de vuelo</th>
+    <th>Acciones</th>
+</tr>
+
+
+<% arreglovuelo.forEach( (objeto)=>{ %>
+    <tr>
+        <td><%= objeto.asientos_diponibles %></td>
+        <td><%= objeto.asientos_ocupados %></td>
+        <td><%= objeto.lugar_origen %></td>
+        <td><%= objeto.lugar_origen %></td>
+        <td><%= objeto.lugar_destino %></td>
+        <td><%= objeto.estado_vuelo%></td>
+        <td><%= objeto.tipo_vuelo%></td>
+        <td>
+
+            <%console.log("idvuelo",objeto.id_Vuelo)%>
+            <a href="/vuelo/vista/adminEscalas/<%= objeto.id_Vuelo %>"
+
+            >
+                <button>Añadir escalas</button>
+            </a>
+
+        </td>
+    </tr>
+<% } ) %>
+
+</table>
+

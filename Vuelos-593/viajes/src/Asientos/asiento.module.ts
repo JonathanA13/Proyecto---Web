@@ -7,11 +7,15 @@ import {AsientoController} from "./asiento.controller";
 @Module(
     {
         imports: [
+
             TypeOrmModule.forFeature([AsientoEntity], 'default')
         ], controllers: [
             AsientoController
         ],
         providers:[
+            AsientoService
+        ],
+        exports:[
             AsientoService
         ]
 

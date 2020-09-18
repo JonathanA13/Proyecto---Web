@@ -7,10 +7,22 @@ export class CabeceraReservaEntity {
     @PrimaryGeneratedColumn()
     id_cabecera_reserva: number
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     estado_reserva: string
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     observaciones: string
 
     @ManyToOne(
