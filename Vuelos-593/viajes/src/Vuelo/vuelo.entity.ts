@@ -7,16 +7,56 @@ import {EscalasEntity} from "../Escalas/escalas.entity";
 export class VueloEntity {
     @PrimaryGeneratedColumn()
     id_Vuelo:number
-    @Column()
-    asientos_diponibles:number
-    @Column()
-    asientos_ocupados:number
+    @Column(
+        {
+            type: 'int',
+            nullable: false,
+            default:200
+        }
+    )
+    asientos_diponibles:number  //administrador
+    @Column(
+        {
+            type: 'int',
+            nullable: false,
+            default: 0
+        }
+    )
+    asientos_ocupados:number //administrador
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+        }
+    )
     lugar_destino:string
-    @Column()
-    estado_vuelo:string
-    @Column()
+
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+        }
+    )
+    lugar_origen:string
+
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+            default:'on time'
+
+        }
+    )
+    estado_vuelo:string   //administrador demorado cancelado a tiempo
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+            default:'Economica'
+
+        }
+    )
     tipo_vuelo:string
 
    @OneToMany(

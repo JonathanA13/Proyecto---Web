@@ -7,10 +7,22 @@ export class EscalasEntity {
     @PrimaryGeneratedColumn()
     id_Escalas:number
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     lugar_escala:string
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     tiempo_escala:string
 
   @ManyToOne(

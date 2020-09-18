@@ -15,6 +15,9 @@ import {EscalasController} from "./escalas.controller";
         ],
         providers:[
             EscalasService
+        ],
+        exports:[
+            EscalasService
         ]
     }
 )

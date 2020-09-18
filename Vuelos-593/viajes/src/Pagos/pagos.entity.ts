@@ -9,12 +9,31 @@ export class PagosEntity {
         type: 'double',
     })
     monto_total?: Double
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     tipo_pago:string
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     numero_tarjeta:string
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+            length: 3
+
+        }
+    )
     digito_seguridad:string
 
     @Column()

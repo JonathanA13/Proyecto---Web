@@ -1,0 +1,12 @@
+<%- include('../compartido/menu/menuAdmin')%>
+<% const existeid = typeof id != 'undefined'%>
+<form action="<%= existeid ? '/escalas/vista/aniadir/'+id :'/escalas/vista/añadir/null'%>" method="POST">
+    <label for="lugar_escalaID">Lugar de escala:</label>
+    <input id="lugar_escalaID" type="text" name="lugar_escala">
+    <br>
+    <label for="tiempo_escalaID">Tiempo de escala:</label>
+    <input id="tiempo_escalaID" type="text" name="tiempo_escala">
+    <br>
+
+    <button type="submit">CREAR</button>
+</form>

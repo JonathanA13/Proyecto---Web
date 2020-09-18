@@ -6,10 +6,13 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put
+    Post, Put, Res
 } from "@nestjs/common";
 
 import {EscalasService} from "./escalas.service";
+import {EscalasCreateDto} from "./dtoEscalas/escalas.create-dto";
+import {validate, ValidationError} from "class-validator";
+import {elementAt} from "rxjs/operators";
 
 
 @Controller('escalas')
@@ -20,6 +23,7 @@ export class EscalasController {
     ) {
 
     }
+
     @Get()
     async mostrarTodos() {
         try {
@@ -107,7 +111,6 @@ export class EscalasController {
     @Delete(':id')
     async eliminarUno(
         @Param() parametroRuta
-
     ) {
         const id = Number(parametroRuta.id)
         try {
@@ -127,5 +130,54 @@ export class EscalasController {
         }
     }
 
+    @Post('vista/aniadir/:id')
+    async añadirEscalas(
+        @Param() parametrosRuta,
+        @Res() res,
+        @Body() paramentroscuerpo
+    ) {
+        const lugar = paramentroscuerpo.lugar_escala
+        const tiempo =Number( paramentroscuerpo.tiempo_escala)
+        let vuelo = paramentroscuerpo.vuelo
+        const escalDto = new EscalasCreateDto()
+        escalDto.lugar_escala = lugar
+        escalDto.tiempo_escala = tiempo
+        const idVuelo = parametrosRuta.id
+        try {
+            const errores: ValidationError[] = await validate(escalDto)
+            if (errores.length > 0) {
+
+                console.error("error de try ", errores)
+                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
+
+            } else {
+                vuelo=idVuelo
+                let respuestaRegistro
+                try {
+                    respuestaRegistro = await this._escalaService.crearUno(paramentroscuerpo)
+                } catch (error) {
+                    console.error(error);
+                    const mensajeError = 'Error al registrar el vuelo'
+                    return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
+                }
+                if (respuestaRegistro) {
+                    return res.redirect('/vuelo/vista/admin');
+                } else {
+                    const mensajeError = 'Error al registrar el viaje'
+                    return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
+                }
+
+
+            }
+
+        } catch (e) {
+            console.error('Error', e)
+            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+            return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
+
+
+        }
+    }
 
 }
