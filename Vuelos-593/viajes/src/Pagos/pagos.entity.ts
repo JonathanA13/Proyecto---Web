@@ -1,18 +1,39 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Double, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {BoletosEntity} from "../Boletos/boletos.entity";
 
 @Entity()
 export class PagosEntity {
     @PrimaryGeneratedColumn()
     id_Pago:number
-    @Column()
-    monto_total:Float64Array
-    @Column()
+    @Column({
+        type: 'double',
+    })
+    monto_total?: Double
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     tipo_pago:string
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     numero_tarjeta:string
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+            length: 3
+
+        }
+    )
     digito_seguridad:string
 
     @Column()

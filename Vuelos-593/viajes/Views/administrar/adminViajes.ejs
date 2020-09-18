@@ -1,0 +1,24 @@
+<%- include('../compartido/menu/menuAdmin')%>
+
+<form action="/vuelo/adminViajesVista" method="POST">
+    <label for="asientosdiponiblesID">Asientos diponibles:</label>
+    <input id="asientosdiponiblesID" type="text" name="asientos_diponibles">
+    <br>
+    <label for="asientosocupadosID">Asientos ocupados:</label>
+    <input id="asientosocupadosID" type="text" name="asientos_ocupados">
+    <br>
+    <label for="orienID">Origen:</label>
+    <input id="orienID " type="text" name="lugar_destino">
+    <br>
+    <label for="destinoID">Destino:</label>
+    <input id="destinoID" type="text" name="lugar_origen">
+    <br>
+    <label for="estado_vueloID">Estado de vuelo:</label>
+    <input id="estado_vueloID" type="text" name="estado_vuelo">
+    <br>
+    <label for="tipo_vueloID">Tipo de vuelo:</label>
+    <input id="tipo_vueloID" type="text" name="tipo_vuelo">
+    <br>
+
+    <button type="submit">CREAR</button>
+</form>

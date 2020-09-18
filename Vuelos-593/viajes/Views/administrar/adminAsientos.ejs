@@ -1,0 +1,11 @@
+<%- include('../compartido/menu/menuAdmin')%>
+<form action="/vuelo/adminAsientosVista" method="POST">
+    <label for="asientos_reservadosID">Asinetos reservados:</label>
+    <input id="asientos_reservadosID" type="text" name="asientos_reservados">
+    <br>
+    <label for="tipo_asientoID">Tipo de asiento:</label>
+    <input id="tipo_asientoID" type="text" name="tipo_asiento">
+    <br>
+
+    <button type="submit">CREAR</button>
+</form>

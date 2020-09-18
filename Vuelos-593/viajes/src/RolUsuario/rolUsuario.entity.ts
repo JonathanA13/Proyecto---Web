@@ -1,5 +1,5 @@
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {UsuarioEntity} from "../Usuario/usuario.entity";
+import {UsuarioEntity} from "../usuario/usuario.entity";
 import {RolEntity} from "../Rol/rol.entity";
 
 @Entity()
@@ -7,7 +7,13 @@ export class RolUsuarioEntity {
     @PrimaryGeneratedColumn()
     id_rol_usuario: number
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+        }
+    )
     detalle: string
 
     @ManyToOne(
