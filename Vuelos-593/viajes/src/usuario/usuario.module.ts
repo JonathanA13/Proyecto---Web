@@ -11,6 +11,10 @@ import {UsuarioController} from "./usuario.controller";
     controllers: [
     UsuarioController
     ],
+
+    exports:[
+    UsuarioService
+],
     providers: [
         UsuarioService
     ]
