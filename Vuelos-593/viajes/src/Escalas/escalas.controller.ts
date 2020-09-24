@@ -143,6 +143,7 @@ export class EscalasController {
         escalDto.lugar_escala = lugar
         escalDto.tiempo_escala = tiempo
         const idVuelo = parametrosRuta.id
+        paramentroscuerpo.vuelo=idVuelo
         try {
             const errores: ValidationError[] = await validate(escalDto)
             if (errores.length > 0) {
@@ -152,7 +153,7 @@ export class EscalasController {
                 return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
 
             } else {
-                vuelo=idVuelo
+                //vuelo=idVuelo
                 let respuestaRegistro
                 try {
                     respuestaRegistro = await this._escalaService.crearUno(paramentroscuerpo)

@@ -186,13 +186,13 @@ export class VueloController {
            })
        }
 
-   @Get('vista/adminAsientos')
+   @Get('vista/adminBoleto')
        adminAsientos(
            @Res()
        res
    )
        {
-           res.render('administrar/adminAsientos')
+           res.render('administrar/adminBoletos')
        }
 
    @Post('adminViajesVista')

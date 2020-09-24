@@ -6,10 +6,13 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put
+    Post, Put, Res
 } from "@nestjs/common";
 
 import {BoletosService} from "./boletos.service";
+import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
+import {validate, ValidationError} from "class-validator";
+import {BoletosCreateDto} from "./dtoBoletos/boletos.create-dto";
 
 
 @Controller('boleto')
@@ -124,5 +127,55 @@ export class BoletosController {
             )
         }
     }
+    @Post('vista/aniadir_boleto')
+    async añadirBoletos(
+        @Param() parametrosRuta,
+        @Res() res,
+        @Body() paramentroscuerpo
+    ) {
+        const fecha_salida = paramentroscuerpo.fecha_salida
+        const costo = paramentroscuerpo.costo_boleto
+        const puerta=paramentroscuerpo.puerta_abordaje
 
+        const BoletolDto = new BoletosCreateDto()
+        BoletolDto.costo_boleto = costo
+        BoletolDto.fecha_salida = fecha_salida
+        BoletolDto.puerta_abordaje=puerta
+        const idVuelo = parametrosRuta.id
+        try {
+            const errores: ValidationError[] = await validate(BoletolDto)
+            if (errores.length > 0) {
+
+                console.error("error de try ", errores)
+                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
+
+            } else {
+
+                let respuestaRegistro
+                try {
+                    respuestaRegistro = await this._boletoService.crearUno(paramentroscuerpo)
+                } catch (error) {
+                    console.error(error);
+                    const mensajeError = 'Error al registrar el vuelo'
+                    return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
+                }
+                if (respuestaRegistro) {
+                    return res.redirect('/vuelo/vista/admin');
+                } else {
+                    const mensajeError = 'Error al registrar el viaje'
+                    return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
+                }
+
+
+            }
+
+        } catch (e) {
+            console.error('Error', e)
+            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+            return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
+
+
+        }
+    }
 }
