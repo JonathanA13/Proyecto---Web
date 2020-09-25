@@ -7,14 +7,23 @@ export class ReservaEntity {
     @PrimaryGeneratedColumn()
     id_reserva: number
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+        }
+    )
     fecha_reserva: string
 
-    @Column()
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+        }
+    )
     tipo: string
 
-    @Column()
-    hora_abordaje: string
+
 
     @ManyToOne(
         type => CabeceraReservaEntity,

@@ -11,10 +11,23 @@ import {ReservaEntity} from "../Reserva/reserva.entity";
 export class AsientoEntity {
     @PrimaryGeneratedColumn()
     id_Asiento:number
-    @Column()
-    numero_asiento:number
-    @Column()
-    tipo_asiento:string
+    @Column(
+        {
+            type:'int',
+            nullable: false,
+            default: 0
+        }
+    )
+    numero_asiento_reservado:number
+    @Column(
+        {
+            type: 'varchar',
+            nullable: false,
+
+
+        }
+    )
+    tipo_asiento_reservado:string
 
     @OneToMany(
 
@@ -26,11 +39,13 @@ export class AsientoEntity {
     type => VueloEntity,
     vuelo=>vuelo.asientos
 )
-    vuelo:VueloEntity
+    vuelo:VueloEntity;
+
+
 @OneToMany(
     type => ReservaEntity,
     reserva=>reserva.asiento
 )
-    reservas:ReservaEntity[]
+    reservas:ReservaEntity[];
 
 }

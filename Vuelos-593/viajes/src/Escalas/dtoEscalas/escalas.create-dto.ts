@@ -9,6 +9,6 @@ import {
 export class EscalasCreateDto {
     @IsAlpha()
     lugar_escala
-    @IsAlpha()
+    @IsInt()
     tiempo_escala
 }
