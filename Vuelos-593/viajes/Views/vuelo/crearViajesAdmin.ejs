@@ -2,6 +2,7 @@
 <h1>ADMINSITRAR VIAJES</h1>
 <%- include('../compartido/menu/menuAdmin')%>
 
+
 <table>
 <!--table row-->
 <tr>
@@ -32,6 +33,26 @@
 
             >
                 <button>Añadir escalas</button>
+            </a>
+
+        </td>
+        <td>
+
+            <%console.log("idvuelo",objeto.id_Vuelo)%>
+            <a href="/vuelo/vista/adminEscalas/<%= objeto.id_Vuelo %>"
+
+            >
+                <button>Añadir recesrvas</button>
+            </a>
+
+        </td>
+        <td>
+
+            <%console.log("idvuelo",objeto.id_Vuelo)%>
+            <a href="/vuelo/vista/adminBoleto%>"
+
+            >
+                <button>Añadir boletos</button>
             </a>
 
         </td>

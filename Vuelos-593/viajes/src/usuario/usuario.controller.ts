@@ -12,6 +12,7 @@ import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dtoUsuario/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {UsuarioEntity} from "./usuario.entity";
+import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
 
 @Controller('usuario')
 
@@ -128,58 +129,7 @@ export class UsuarioController {
         res.render('usuario/registro')
     }
 
-    @Post('registrarVista')
-    async registrarVista(
-        @Body() paramentroscuerpo,
-        @Res() res
-    ) {
-        const nombre = paramentroscuerpo.nombre_usuario
-        const apellido = paramentroscuerpo.apellido_usuario
-        const correo = paramentroscuerpo.correo_usuario
-        const edad = paramentroscuerpo.edad_usuario
-        const contrasenia = paramentroscuerpo.contrasenia
-        const usuario = new UsuarioCreateDto()
-        usuario.nombreUsuario = nombre
-        usuario.apellidoUsuario = apellido
-        usuario.correoUsuario = correo
-        usuario.edad = Number(edad)
-        usuario.contrasenia = contrasenia
-        console.log("impimeidno datos", nombre)
-        console.log("impimeidno datos", apellido)
-        console.log("impimeidno datos", correo)
 
-        try {
-            const errores: ValidationError[] = await validate(usuario)
-            if (errores.length > 0) {
-
-                console.error("error de try ",errores)
-                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
-                return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
-
-            } else {
-                let respuestaRegistro
-                    try{
-                    respuestaRegistro=await this._usuarioService.crearUno(paramentroscuerpo)
-                    }catch (error) {
-                        console.error(error);
-                        const mensajeError = 'Error al registrar el usuario'
-                        return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
-                    }
-                    if(respuestaRegistro){
-                        return res.redirect('/vuelo/vista/viajes');
-                    }else{
-                        const mensajeError = 'Error al registrar el usuario'
-                        return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
-                    }
-
-            }
-
-        } catch (e) {
-            console.error('Error', e)
-            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
-            return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
-        }
-    }
 
     @Post('loginVista')
     async loginVista(
