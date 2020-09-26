@@ -3,7 +3,7 @@ import {
     IsAlpha,
     Min, Max,
     IsDate,
-    IsDecimal
+    IsDecimal, IsAlphanumeric, IsDateString, IsRFC3339
 } from "class-validator";
 
 
@@ -15,6 +15,6 @@ export class BoletosCreateDto {
     @IsDecimal()
     costo_boleto
 
-    @IsAlpha()
+    @IsAlphanumeric()
     puerta_abordaje
 }

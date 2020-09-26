@@ -16,6 +16,7 @@ import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {AsientoService} from "../Asientos/asiento.service";
 import {EscalasService} from "../Escalas/escalas.service";
+import {UsuarioService} from "../usuario/usuario.service";
 
 
 @Controller('vuelo')
@@ -25,6 +26,7 @@ export class VueloController {
         private readonly  _vueloService:VueloService,
         private readonly  _asientoService: AsientoService,
         private readonly  _escalaService: EscalasService,
+        private readonly _usuarioService: UsuarioService,
 
     ) {
 
@@ -294,6 +296,27 @@ export class VueloController {
         @Res() res
     ){
         res.render('viajes/datosViaje')
+
+    @Get('vista/adminUsuarios')
+    async adminUsuario(
+        @Res() res
+    ) {
+        let resultadoEncontrado
+        try {
+            resultadoEncontrado = await this._usuarioService.buscarTodos();
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando vuelos')
+        }
+        if (resultadoEncontrado) {
+
+            res.render('administrar/adminUsuario',
+                {
+                    arreglousuario: resultadoEncontrado,
+
+
+                })
+        }
+
     }
 
    }
