@@ -6,7 +6,7 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put, Res
+    Post, Put, Query, Res
 } from "@nestjs/common";
 
 import {VueloService} from "./vuelo.service";
@@ -138,10 +138,22 @@ export class VueloController {
     }
 
     @Get('vista/viajes')
-    viajes(
+    async viajes(
         @Res() res
     ){
-        res.render('vuelo/viajes')
+        let resultadoEncontrado
+        try {
+            resultadoEncontrado = await this._vueloService.buscarTodos();
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando vuelos')
+        }
+        if (resultadoEncontrado) {
+            res.render('vuelo/viajes',
+                {
+                    arreglovuelo: resultadoEncontrado
+                })
+        }
+
     }
 
    @Get('vista/admin')
@@ -250,5 +262,38 @@ export class VueloController {
                return res.redirect('vuelo/vista/adminViajes?error=' + mensajeError)
            }
        }
+
+
+    @Get('vista/ofertas')
+    async ofertasVista(
+        @Res() res,
+        @Query() parametrosConsulta
+    )
+    {
+        let resultadoEncontrado
+        try {
+            resultadoEncontrado = await this._vueloService.buscarTodosParametros(parametrosConsulta.destinoID)
+            console.log("LLega hasta aquí el arreglo ", resultadoEncontrado)
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando destino')
+        }
+        if (resultadoEncontrado) {
+            res.render(
+                'vuelo/viajes',
+                {
+                    arregloViaje: resultadoEncontrado,
+                    parametrosConsulta: parametrosConsulta
+                });
+        } else {
+            throw new NotFoundException('No se encontraron viajes')
+        }
+    }
+
+    @Get('datosViaje')
+    datosViaje(
+        @Res() res
+    ){
+        res.render('viajes/datosViaje')
+    }
 
    }

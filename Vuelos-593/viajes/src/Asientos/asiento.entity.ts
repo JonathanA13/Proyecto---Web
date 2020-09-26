@@ -35,17 +35,17 @@ export class AsientoEntity {
         boleto=>boleto.asiento
     )
     boletos:BoletosEntity[]
-@ManyToOne(
-    type => VueloEntity,
-    vuelo=>vuelo.asientos
-)
-    vuelo:VueloEntity;
+    @ManyToOne(
+        type => VueloEntity,
+        vuelo=>vuelo.asientos
+    )
+        vuelo:VueloEntity;
 
 
-@OneToMany(
-    type => ReservaEntity,
-    reserva=>reserva.asiento
-)
-    reservas:ReservaEntity[];
+    @OneToMany(
+        type => ReservaEntity,
+        reserva=>reserva.asiento
+    )
+        reservas:ReservaEntity[];
 
 }
