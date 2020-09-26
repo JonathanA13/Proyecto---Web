@@ -13,13 +13,15 @@ import {UsuarioCreateDto} from "./dtoUsuario/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {UsuarioEntity} from "./usuario.entity";
 import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
+import {RolUsuarioService} from "../RolUsuario/rolUsuario.service";
 
 @Controller('usuario')
 
 export class UsuarioController {
 
     constructor(
-        private readonly _usuarioService: UsuarioService
+        private readonly _usuarioService: UsuarioService,
+
     ) {
     }
 
@@ -131,42 +133,6 @@ export class UsuarioController {
 
 
 
-    @Post('loginVista')
-    async loginVista(
-        @Body() paramentroscuerpo,
-        @Res() res
-    ) {
-        const correo = paramentroscuerpo.correo_usuario
-        const contrasenia = paramentroscuerpo.contrasenia
-        //const usuario = new UsuarioCreateDto()
-        //usuario.correoUsuario = correo
-        console.log("datos busqueda", correo,contrasenia)
-
-                let respuetabusqueda
-                let compararrespuesta
-                try {
 
 
-
-                    compararrespuesta=await this._usuarioService.buscarLogincontrasenia(contrasenia,correo)
-
-                    console.log("respuesta busqueda",compararrespuesta.toString())
-
-
-                } catch (error) {
-                    console.error(error);
-                    const mensajeError = 'Error al iniciar sesion el usuario'
-                    return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
-                }
-                if(compararrespuesta.toString()){
-                    return res.redirect('/vuelo/vista/viajes');
-                }else {
-                    const mensajeError = 'Error al iniciar sesion'
-                    return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
-                }
-
-
-
-
-    }
     }

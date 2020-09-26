@@ -1,7 +1,8 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
+import {Equal, FindManyOptions, Repository} from "typeorm";
 import {RolUsuarioEntity} from "./rolUsuario.entity";
+import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Injectable()
 
@@ -22,6 +23,19 @@ export class RolUsuarioService {
 
     buscarUno(id: number){
         return this.repositorio.findOne(id)
+    }
+
+    buscarRol(idUusuario:Number){
+        console.log("rol",idUusuario)
+        let buscarRol:FindManyOptions<RolUsuarioEntity>
+        buscarRol={
+            where:{
+                rol:Equal(idUusuario)
+
+
+            }
+        }
+        return this.repositorio.find(buscarRol)
     }
 
     editarUno(rolUsuarioEditado: RolUsuarioEntity){
