@@ -14,6 +14,8 @@ import {validate, ValidationError} from "class-validator";
 import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
 import {UsuarioService} from "../usuario/usuario.service";
 import {RolUsuarioCreateDto} from "./dtoRolUsuario/rolUsuario.create-dto";
+import {UsuarioEntity} from "../usuario/usuario.entity";
+import {RolUsuarioEntity} from "./rolUsuario.entity";
 
 @Controller('rolUsuario')
 
@@ -222,4 +224,55 @@ export class RolUsuarioController {
             return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
         }
     }
+
+    @Post('loginVista')
+    async loginVista(
+        @Body() paramentroscuerpo,
+        @Res() res
+    ) {
+        const correo = paramentroscuerpo.correo_usuario
+        const contrasenia = paramentroscuerpo.contrasenia
+        //const usuario = new UsuarioCreateDto()
+        //usuario.correoUsuario = correo
+        console.log("datos busqueda", correo,contrasenia)
+
+        let respuetabusqueda
+        let compararrespuesta
+
+        try {
+           // compararrespuesta=await this._usuarioService.buscarLogincontrasenia(contrasenia,correo)
+            respuetabusqueda=await this._usuarioService.login(correo,contrasenia)
+            console.log("usuario log",respuetabusqueda)
+
+        } catch (error) {
+            console.error(error);
+            const mensajeError = 'Error al iniciar sesion el usuario'
+            return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
+        }
+        if(respuetabusqueda){
+            const buscaAdmin=respuetabusqueda.rolUsuarios
+
+            console.log("rol", buscaAdmin)
+            if(buscaAdmin.some(rolUsuario=>
+                rolUsuario.rol.tipo_rol=='administrador')){
+                console.log("rol", buscaAdmin)
+                return res.redirect('/vuelo/vista/admin');
+            }else {
+              //  const mensajeError = 'Usuario no tiene sufienetes permisos'
+               // return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
+                if(buscaAdmin.some(rolUsuario=>
+                    rolUsuario.rol.tipo_rol=='cliente')){
+                    console.log("rol", buscaAdmin)
+                    return res.redirect('/vuelo/vista/viajes');
+                }else {
+                    const mensajeError = 'Usuario no exite'
+                    return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
+                }
+
+            }
+        }else {
+            const mensajeError = 'Error al iniciar sesion'
+            return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
+        }
+         }
 }

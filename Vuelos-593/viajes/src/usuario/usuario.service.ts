@@ -38,6 +38,14 @@ export class UsuarioService {
 
 
     }
+    login(correo:string,contraseniarol:string){
+        let usuarioRol:FindManyOptions<UsuarioEntity>
+        return this.repositorio.findOne( {relations:["rolUsuarios","rolUsuarios.rol"],
+        where:{
+            correo_usuario:Equal(correo),
+            contrasenia:Equal(contraseniarol)
+        }})
+    }
 
 
 

@@ -5,6 +5,7 @@ import {VueloEntity} from "./vuelo.entity";
 import {VueloController} from "./vuelo.controller";
 import {AsientoModule} from "../Asientos/asiento.module";
 import {EscalasModule} from "../Escalas/escalas.module";
+import {UsuarioModule} from "../usuario/usuario.module";
 
 @Module(
     {
@@ -12,6 +13,7 @@ import {EscalasModule} from "../Escalas/escalas.module";
 
             EscalasModule,
             AsientoModule,
+            UsuarioModule,
             TypeOrmModule.forFeature([VueloEntity], 'default')
         ],
         controllers: [

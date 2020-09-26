@@ -1,63 +1,59 @@
 
 <h1>ADMINSITRAR VIAJES</h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <%- include('../compartido/menu/menuAdmin')%>
 
 
-<table>
-<!--table row-->
-<tr>
-    <!--table header-->
-    <th>Asientos Disponibles</th>
-    <th>Asientos Ocupados</th>
-    <th>Origen</th>
-    <th>Destino</th>
-    <th>Estado de vuelo</th>
-    <th>Tipo de vuelo</th>
-    <th>Acciones</th>
-</tr>
 
 
-<% arreglovuelo.forEach( (objeto)=>{ %>
+<div class="table-responsive">
+  <table class="table">
+
     <tr>
-        <td><%= objeto.asientos_diponibles %></td>
-        <td><%= objeto.asientos_ocupados %></td>
-        <td><%= objeto.lugar_origen %></td>
-        <td><%= objeto.lugar_origen %></td>
-        <td><%= objeto.lugar_destino %></td>
-        <td><%= objeto.estado_vuelo%></td>
-        <td><%= objeto.tipo_vuelo%></td>
-        <td>
-
-            <%console.log("idvuelo",objeto.id_Vuelo)%>
-            <a href="/vuelo/vista/adminEscalas/<%= objeto.id_Vuelo %>"
-
-            >
-                <button>Añadir escalas</button>
-            </a>
-
-        </td>
-        <td>
-
-            <%console.log("idvuelo",objeto.id_Vuelo)%>
-            <a href="/vuelo/vista/adminEscalas/<%= objeto.id_Vuelo %>"
-
-            >
-                <button>Añadir recesrvas</button>
-            </a>
-
-        </td>
-        <td>
-
-            <%console.log("idvuelo",objeto.id_Vuelo)%>
-            <a href="/vuelo/vista/adminBoleto%>"
-
-            >
-                <button>Añadir boletos</button>
-            </a>
-
-        </td>
+        <!--table header-->
+        <th>Asientos Disponibles</th>
+        <th>Asientos Ocupados</th>
+        <th>Origen</th>
+        <th>Destino</th>
+        <th>Estado de vuelo</th>
+        <th>Tipo de vuelo</th>
+        <th>Acciones</th>
     </tr>
-<% } ) %>
+
+
+    <% arreglovuelo.forEach( (objeto)=>{ %>
+        <tr>
+            <td><%= objeto.asientos_diponibles %></td>
+            <td><%= objeto.asientos_ocupados %></td>
+            <td><%= objeto.lugar_origen %></td>
+            <td><%= objeto.lugar_destino %></td>
+            <td><%= objeto.estado_vuelo%></td>
+            <td><%= objeto.tipo_vuelo%></td>
+            <td>
+
+                <%console.log("idvuelo",objeto.id_Vuelo)%>
+                <a href="/vuelo/vista/adminEscalas/<%= objeto.id_Vuelo %>"
+
+                >
+                    <button>Añadir escalas</button>
+                </a>
+
+            </td>
+
+            <td>
+
+                <%console.log("idvuelo",objeto.id_Vuelo)%>
+                <a href="/vuelo/vista/adminBoleto%>"
+
+                >
+                    <button>Añadir boletos</button>
+                </a>
+
+            </td>
+        </tr>
+    <% } ) %>
 
 </table>
+</div>
+
 
