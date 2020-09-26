@@ -1,9 +1,15 @@
-<form action="/usuario/loginVista"method="POST">
-    <label for="correoID">COOREO:</label>
-    <input id="correoID" type="text" name="correo_usuario">
+<link rel="stylesheet" href="/css/login.css">
+<body>
+<form action="/rolUsuario/loginVista"method="POST">
+    <h2>
+        Inicio de Sesión
+    </h2>
+
+    <input id="correoID" type="email" placeholder="Correo" name="correo_usuario">
     <br>
-    <label for="contraseniaID">CONTRASEÑA:</label>
-    <input id="contraseniaID" type="password" name="contrasenia">
+
+    <input id="contraseniaID" type="password" placeholder="Contraseña" name="contrasenia">
     <br>
-    <button type="submit">INICIAR SESION</button>
+    <button class="botons">Inciar Sesión</button>
 </form>
+</body>
