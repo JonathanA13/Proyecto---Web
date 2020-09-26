@@ -211,10 +211,11 @@ export class RolUsuarioController {
             }
             console.log('rol usuario creado',rolusuarioCreada)
             if (rolusuarioCreada) {
-                return {
-                    rolUsuario: rolusuarioCreada,
-                    usuario: usuarioCreado
-                }
+                return
+                    res.redirect('/vuelo/vista/viajes');
+                   // rolUsuario: rolusuarioCreada,
+                    //usuario: usuarioCreado
+
             } else {
                 const mensajeError = 'Error al registrar el rol usuario'
                 return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
