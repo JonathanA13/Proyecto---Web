@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {PagosEntity} from "../Pagos/pagos.entity";
-import {Repository} from "typeorm";
+import {FindManyOptions, Like, Repository} from "typeorm";
 import {VueloEntity} from "./vuelo.entity";
 
 
@@ -31,5 +31,19 @@ export class VueloService {
         return this.repository.delete(id);
 
     }
+
+    buscarTodosParametros(destino?: string){
+        const consulta: FindManyOptions<VueloEntity> = {
+            where: [
+                {
+                    lugar_destino: Like(`%${destino}%`)
+                }
+
+            ]
+        }
+        return this.repository.find(consulta)
+    }
+
+
 
 }
