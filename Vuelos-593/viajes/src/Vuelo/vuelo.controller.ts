@@ -294,8 +294,9 @@ export class VueloController {
     @Get('datosViaje')
     datosViaje(
         @Res() res
-    ){
+    ) {
         res.render('viajes/datosViaje')
+    }
 
     @Get('vista/adminUsuarios')
     async adminUsuario(
