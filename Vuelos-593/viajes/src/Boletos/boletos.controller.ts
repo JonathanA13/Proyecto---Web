@@ -183,16 +183,19 @@ export class BoletosController {
         }
     }
 
-    @Get('vista/datos/:idBoleto/:idVuelo/:idAsiento')
+    /*@Get('vista/datos/:id_Boleto/:id_Vuelo/:id_Asiento')
     async datos(
         @Res() res,
         @Param() parametrosruta
     ){
         //const fechaActual = Date.now()
         //console.log("Esta es la fecha******************", fechaActual)
-        const id_boleto = Number(parametrosruta.idBoleto)
-        const id_vuelo = Number(parametrosruta.idVuelo)
-        const id_asiento = Number(parametrosruta.idAsiento)
+        const id_boleto = Number(parametrosruta.id_Boleto)
+        console.log("************************************", id_boleto)
+        const id_vuelo = Number(parametrosruta.id_Vuelo)
+        console.log("************************************", id_vuelo)
+        const id_asiento = Number(parametrosruta.id_Asiento)
+        console.log("************************************", id_asiento)
         let respuesta1
         let respuesta2
         let respuesta3
@@ -221,5 +224,5 @@ export class BoletosController {
         }
         //const
 
-    }
+    }*/
 }

@@ -14,8 +14,6 @@
     <input  class="controls" id="estado" type="number" name="estado_reserva">
     <br>
 
-
-
 <table>
     <tr>
 
@@ -27,30 +25,26 @@
         <th>Puerta de Abordaje</th>
         <th>Numero de Asientos</th>
         <th>Tipo de Asientos</th>
-
     </tr>
 
-    <% arregloVuelo.forEach((objeto)=>{ %>
+    <% arregloVuelo.forEach((objeto1)=>{ %>
+        <% arregloBoleto.forEach((objeto2)=>{ %>
+            <% arregloAsiento.forEach((objeto3)=>{ %>
+
         <tr>
-            <td><%= objeto.lugar_origen%></td>
-            <td><%= objeto.lugar_destino%></td>
-            <td><%= objeto.tipo_vuelo%></td>
+            <td><%= objeto1.lugar_destino%></td>
+            <td><%= objeto1.lugar_origen%></td>
+            <td><%= objeto1.tipo_vuelo%></td>
+            <td><%= objeto2.fecha_salida%></td>
+            <td><%= objeto2.costo_boleto%></td>
+            <td><%= objeto2.puerta_abordaje%></td>
+            <td><%= objeto3.numero_asiento_reservado%></td>
+            <td><%= objeto3.tipo_asiento_reservado%></td>
         </tr>
+                <% } ) %>
+        <% } ) %>
     <% } ) %>
 
-    <% arregloBoleto.forEach((objeto)=>{ %>
-        <tr>
-            <td><%= objeto.fecha_salida%></td>
-            <td><%= objeto.costo_boleto%></td>
-            <td><%= objeto.puerta_abordaje%></td>
-        </tr>
-    <% } ) %>
-    <% arregloAsiento.forEach((objeto)=>{ %>
-        <tr>
-            <td><%= objeto.numero_asiento_reservado%></td>
-            <td><%= objeto.tipo_asiento_reservado%></td>
-        </tr>
-    <% } ) %>
 
 </table>
 

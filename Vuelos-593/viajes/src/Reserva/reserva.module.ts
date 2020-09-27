@@ -6,11 +6,15 @@ import {ReservaController} from "./reserva.controller";
 import {BoletosModule} from "../Boletos/boletos.module";
 import {AsientoService} from "../Asientos/asiento.service";
 import {BoletosService} from "../Boletos/boletos.service";
+import {VueloModule} from "../Vuelo/vuelo.module";
+import {AsientoModule} from "../Asientos/asiento.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([ReservaEntity], 'default'),
-        BoletosModule
+        BoletosModule,
+        VueloModule,
+        AsientoModule
     ],
     controllers: [
         ReservaController
