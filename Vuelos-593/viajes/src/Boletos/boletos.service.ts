@@ -30,4 +30,10 @@ export class BoletosService {
         return this.repository.delete(id);
 
     }
+
+    busqueda(idBoleto:number){
+
+        return this.repository.findOne({relations: ['asiento','vuelo']})
+        console.log()
+    }
 }

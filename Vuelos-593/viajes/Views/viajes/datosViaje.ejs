@@ -1,17 +1,16 @@
 <h1>Datos del viaje</h1>
 
-<form action="/usuario/buscarVueloVista" method="POST">
+<% const existeid = typeof id != 'undefined'%>
 
-    <label for="salidaID">Salida:</label>
-    <input id="salidaID " type="date" name="salida">
-    <br>
-    <label for="retornoID">Retorno:</label>
-    <input id="retornoID " type="date" name="retorno">
-    <br>
+<form action="<%= existeid ? '/asiento/vista/reservarAsientos/'+id :'/escalas/vista/reservarAsientos/null'%>" method="POST">
+
     <label for="pasajerosID">Pasajeros:</label>
-    <input id="pasajerosID " type="hidden" name="pasajeros">
+    <input id="pasajerosID " type="number" name="numero_asiento_reservado">
     <br>
     <label for="claseID">Clase:</label>
-    <input id="claseID" type="text" name="clase">
+    <input id="claseID" type="text" name="tipo_asiento_reservado" >
+    <br>
+    <button>Reservar</button>
 
 </form>
+

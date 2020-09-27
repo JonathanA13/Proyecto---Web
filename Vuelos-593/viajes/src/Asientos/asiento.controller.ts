@@ -6,15 +6,17 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put
+    Post, Put, Res
 } from "@nestjs/common";
 import {AsientoService} from "./asiento.service";
+import {AsientoCreateDto} from "./dtoAsientos/asiento.create-dto";
+import {validate, ValidationError} from "class-validator";
 
 @Controller('asiento')
 export class AsientoController {
     constructor(
         //inyeccion de dependencias
-        private readonly  _asientoService: AsientoService,
+        private readonly  _asientoService: AsientoService
     ) {
 
     }
@@ -79,6 +81,7 @@ export class AsientoController {
             )
         }
     }
+
     @Put(':id')
     async editarUno(
         @Param() parametroRuta,
@@ -105,7 +108,6 @@ export class AsientoController {
     @Delete(':id')
     async eliminarUno(
         @Param() parametroRuta
-
     ) {
         const id = Number(parametroRuta.id)
         try {
@@ -124,5 +126,56 @@ export class AsientoController {
             )
         }
     }
+
+    @Post('vista/reservarAsientos/:id')
+    async reservarAsientos(
+        @Body() parametrosCuerpo,
+        @Res() res,
+        @Param() parametrosRuta
+    ) {
+        const numAsientos = Number(parametrosCuerpo.numero_asiento_reservado)
+        const tipo = parametrosCuerpo.tipo_asiento_reservado
+        const validarDTO = new AsientoCreateDto()
+        validarDTO.numero_asiento = numAsientos
+        validarDTO.tipo_asiento = tipo
+        const id_vuelo = parametrosRuta.id
+        parametrosCuerpo.vuelo = id_vuelo
+
+        try {
+            const errores: ValidationError[] = await validate(validarDTO)
+            if (errores.length > 0) {
+
+                console.error("error de try ", errores)
+                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                return res.redirect('/vuelo/vista/datosViaje/' + id_vuelo + '?error=' + mensajeError)
+
+            } else {
+                //vuelo=idVuelo
+                let respuestaAsiento
+                try {
+                    respuestaAsiento = await this._asientoService.crearUno(parametrosCuerpo)
+                } catch (error) {
+                    console.error(error);
+                    const mensajeError = 'Error al registrar el vuelo'
+                    return res.redirect('/vuelo/vista/datosViaje/' + id_vuelo + '?error=' + mensajeError)
+                }
+                if (respuestaAsiento) {
+                    return res.redirect('/reserva/vista/reserva/' + respuestaAsiento.id_Asiento + '/' + respuestaAsiento.numero_asiento_reservado + '/' + id_vuelo);
+                } else {
+                    const mensajeError = 'Error al registrar el viaje'
+                    return res.redirect('/vuelo/vista/datosViaje/' + id_vuelo + '?error=' + mensajeError)
+                }
+
+
+            }
+
+        } catch (e) {
+            console.error('Error', e)
+            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+            return res.redirect('/vuelo/vista/reservarAsientos/' + id_vuelo + '?error=' + mensajeError)
+
+        }
+    }
+
 
 }
