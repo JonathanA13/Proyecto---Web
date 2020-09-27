@@ -139,24 +139,7 @@ export class VueloController {
         }
     }
 
-    @Get('vista/viajes')
-    async viajes(
-        @Res() res
-    ){
-        let resultadoEncontrado
-        try {
-            resultadoEncontrado = await this._vueloService.buscarTodos();
-        } catch (error) {
-            throw new InternalServerErrorException('Error encontrando vuelos')
-        }
-        if (resultadoEncontrado) {
-            res.render('vuelo/viajes',
-                {
-                    arreglovuelo: resultadoEncontrado
-                })
-        }
 
-    }
 
    @Get('vista/admin')
    async admin(
@@ -186,6 +169,7 @@ export class VueloController {
        {
            res.render('administrar/adminViajes')
        }
+
    @Get('vista/adminEscalas/:id')
        adminEscalas(
            @Res()
@@ -266,7 +250,7 @@ export class VueloController {
        }
 
 
-    @Get('vista/ofertas')
+    @Get('vista/viajes')
     async ofertasVista(
         @Res() res,
         @Query() parametrosConsulta
@@ -274,7 +258,8 @@ export class VueloController {
     {
         let resultadoEncontrado
         try {
-            resultadoEncontrado = await this._vueloService.buscarTodosParametros(parametrosConsulta.destinoID)
+            //resultadoEncontrado = await this._vueloService.buscarTodosParametros(parametrosConsulta.destino)
+            resultadoEncontrado = await this._vueloService.buscarTodos()
             console.log("LLega hasta aquí el arreglo ", resultadoEncontrado)
         } catch (error) {
             throw new InternalServerErrorException('Error encontrando destino')
@@ -291,11 +276,16 @@ export class VueloController {
         }
     }
 
-    @Get('datosViaje')
+    @Get('vista/datosViaje/:id')
     datosViaje(
-        @Res() res
+        @Res() res,
+        @Param() parametrosruta
     ) {
-        res.render('viajes/datosViaje')
+        const id_Vuelo = Number(parametrosruta.id)
+        return res.render('viajes/datosViaje', {
+            id:id_Vuelo
+        })
+
     }
 
     @Get('vista/adminUsuarios')
@@ -318,6 +308,32 @@ export class VueloController {
                 })
         }
 
+    }
+
+    @Get('vista/destinos')
+    async ofertasBuscar(
+        @Res() res,
+        @Query() parametrosConsulta
+    )
+    {
+        let resultadoEncontrado
+        try {
+            resultadoEncontrado = await this._vueloService.buscarTodosParametros(parametrosConsulta.destino)
+            //resultadoEncontrado = await this._vueloService.buscarTodos()
+            console.log("LLega hasta aquí el arreglo ", resultadoEncontrado)
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando destino')
+        }
+        if (resultadoEncontrado) {
+            res.render(
+                'vuelo/viajes',
+                {
+                    arregloViaje: resultadoEncontrado,
+                    parametrosConsulta: parametrosConsulta
+                });
+        } else {
+            throw new NotFoundException('No se encontraron viajes')
+        }
     }
 
    }

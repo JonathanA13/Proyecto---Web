@@ -5,7 +5,7 @@
 <% const ofertas = {codigo: "SN 2585", origen: "Quito", destino: "Bogotá"}%>
 
 
-<form action="/vuelo/vista/ofertas" method="get">
+<form action="/vuelo/vista/destinos" method="get">
     <label for="destinoID">Destino:</label>
     <input id="destinoID" type="text" name="destino">
     <br>
@@ -25,7 +25,7 @@
             <td><%= objeto.lugar_origen%></td>
             <td><%= objeto.lugar_destino%></td>
             <td>
-                <a href="vuelo/datosViajes/<%= objeto.id%>"  >
+                <a href="datosViaje/<%= objeto.id_Vuelo%>"  >
                     <button>Seleccionar</button>
                 </a>
             </td>

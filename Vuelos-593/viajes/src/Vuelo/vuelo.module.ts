@@ -21,6 +21,9 @@ import {UsuarioModule} from "../usuario/usuario.module";
         ],
         providers:[
             VueloService
+        ],
+        exports: [
+            VueloService
         ]
     }
 )

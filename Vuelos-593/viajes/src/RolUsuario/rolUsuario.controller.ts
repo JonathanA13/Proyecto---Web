@@ -211,8 +211,7 @@ export class RolUsuarioController {
             }
             console.log('rol usuario creado',rolusuarioCreada)
             if (rolusuarioCreada) {
-                return
-                    res.redirect('/vuelo/vista/viajes');
+                return res.redirect('/vuelo/vista/viajes');
                    // rolUsuario: rolusuarioCreada,
                     //usuario: usuarioCreado
 

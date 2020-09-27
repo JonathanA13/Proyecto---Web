@@ -1,0 +1,33 @@
+<h1>Reservar</h1>
+
+<form action="/boleto/vista/datos" method="get">
+
+<table>
+    <tr>
+
+        <th>Fecha Salida</th>
+        <th>Puerta Abordaje </th>
+        <th>Costo del Boleto</th>
+        <th>Numero de Asientos</th>
+        <th>Total </th>
+        <th>Acciones</th>
+    </tr>
+
+    <% arregloBoleto.forEach((objeto)=>{ %>
+        <tr>
+            <td><%= objeto.fecha_salida%></td>
+            <td><%= objeto.puerta_abordaje%></td>
+            <td><%= objeto.costo_boleto%></td>
+            <td><%= numero_asiento_reservado%></td>
+            <td><%= Number(objeto.costo_boleto) * Number(numero_asiento_reservado) %></td>
+            <td>
+                <a href="vista/datos/<%= objeto.id_Boleto%>'/'<%= id%>'/'<%= id%>"  >
+                    <button>Reservar</button>
+                </a>
+            </td>
+        </tr>
+    <% } ) %>
+
+</table>
+
+</form>

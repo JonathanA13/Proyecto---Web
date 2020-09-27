@@ -6,7 +6,7 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put
+    Post, Put, Res
 } from "@nestjs/common";
 
 import {PagosService} from "./pagos.service";
@@ -128,6 +128,17 @@ export class PagosController {
             )
         }
     }
+
+    /*@Get('vista/datos')
+    datos(
+        @Res() res,
+
+    ){
+        const fechaActual = Date.now()
+        console.log("Esta es la fecha******************", fechaActual)
+        const
+
+    }*/
 
 
 }
