@@ -210,7 +210,7 @@ export class RolUsuarioController {
                 return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
             }
             console.log('rol usuario creado',rolusuarioCreada)
-            if (rolusuarioCreada) {
+            if (rolusuarioCreada && usuarioCreado) {
                 return
                     res.redirect('/vuelo/vista/viajes');
                    // rolUsuario: rolusuarioCreada,
