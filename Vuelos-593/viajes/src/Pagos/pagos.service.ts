@@ -31,4 +31,6 @@ export class PagosService {
         return this.repository.delete(id);
 
     }
+
+
 }

@@ -159,7 +159,7 @@ export class EscalasController {
                     respuestaRegistro = await this._escalaService.crearUno(paramentroscuerpo)
                 } catch (error) {
                     console.error(error);
-                    const mensajeError = 'Error al registrar el vuelo'
+                    const mensajeError = 'Error al registrar una escala'
                     return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
                 }
                 if (respuestaRegistro) {

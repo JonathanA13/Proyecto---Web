@@ -11,7 +11,6 @@ export class ReservaEntity {
         {
             type: 'varchar',
             nullable: false,
-
         }
     )
     fecha_reserva: string
@@ -20,19 +19,11 @@ export class ReservaEntity {
         {
             type: 'varchar',
             nullable: false,
-
         }
     )
     tipo: string
 
-    @Column(
-        {
-            type: 'varchar',
-            nullable: false,
 
-        }
-    )
-    hora_abordaje: string
 
     @ManyToOne(
         type => CabeceraReservaEntity,

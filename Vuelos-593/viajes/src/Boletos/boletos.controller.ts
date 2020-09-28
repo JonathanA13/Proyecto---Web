@@ -13,6 +13,8 @@ import {BoletosService} from "./boletos.service";
 import {EscalasCreateDto} from "../Escalas/dtoEscalas/escalas.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {BoletosCreateDto} from "./dtoBoletos/boletos.create-dto";
+import {VueloService} from "../Vuelo/vuelo.service";
+import {AsientoService} from "../Asientos/asiento.service";
 
 
 @Controller('boleto')
@@ -20,6 +22,8 @@ export class BoletosController {
     constructor(
         //inyeccion de dependencias
         private readonly  _boletoService: BoletosService,
+        private readonly  _vueloService: VueloService,
+        private readonly  _asientoService: AsientoService
     ) {
 
     }
@@ -178,4 +182,47 @@ export class BoletosController {
 
         }
     }
+
+    /*@Get('vista/datos/:id_Boleto/:id_Vuelo/:id_Asiento')
+    async datos(
+        @Res() res,
+        @Param() parametrosruta
+    ){
+        //const fechaActual = Date.now()
+        //console.log("Esta es la fecha******************", fechaActual)
+        const id_boleto = Number(parametrosruta.id_Boleto)
+        console.log("************************************", id_boleto)
+        const id_vuelo = Number(parametrosruta.id_Vuelo)
+        console.log("************************************", id_vuelo)
+        const id_asiento = Number(parametrosruta.id_Asiento)
+        console.log("************************************", id_asiento)
+        let respuesta1
+        let respuesta2
+        let respuesta3
+        try {
+            respuesta1 = await this._boletoService.buscarUno(id_boleto)
+            respuesta2 = await this._vueloService.buscarUno(id_vuelo)
+            respuesta3 = await this._asientoService.buscarUno(id_asiento)
+
+            console.log("LLega hasta aquí el arreglo ", respuesta1)
+
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando destino')
+        }
+        if (respuesta1 && respuesta2 && respuesta3) {
+            res.render(
+                'viajes/datosPago',
+                {
+                    arregloBoleto: respuesta1,
+                    arregloVuelo: respuesta2,
+                    arregloAsiento: respuesta3,
+                    parametrosRuta: parametrosruta
+
+                });
+        } else {
+            throw new NotFoundException('No se encontraron viajes')
+        }
+        //const
+
+    }*/
 }

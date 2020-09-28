@@ -1,0 +1,53 @@
+<h1>Pantalla de Pagos</h1>
+
+<form action="/reserva/vista/reservarVuelo" method="POST">
+    <label for="fechaReserva">Fecha de Reserva:</label>
+    <input class="controls" id="fechaReserva" type="text" name="fecha_reserva">
+    <br>
+    <label for="tipo">Tipo:</label>
+    <input class="controls" id="tipo" type="text" name="tipo">
+    <br>
+    <label for="observaciones">Observaciones:</label>
+    <input class="controls" id="observaciones" type="text" name="observaciones">
+    <br>
+    <label  for="estado">Estado Reserva:</label>
+    <input  class="controls" id="estado" type="number" name="estado_reserva">
+    <br>
+
+<table>
+    <tr>
+
+        <th>Origen</th>
+        <th>Destino </th>
+        <th>Tipo de vuelo</th>
+        <th>Fecha de Salida</th>
+        <th>Costo de Boleto</th>
+        <th>Puerta de Abordaje</th>
+        <th>Numero de Asientos</th>
+        <th>Tipo de Asientos</th>
+    </tr>
+
+    <% arregloVuelo.forEach((objeto1)=>{ %>
+        <% arregloBoleto.forEach((objeto2)=>{ %>
+            <% arregloAsiento.forEach((objeto3)=>{ %>
+
+        <tr>
+            <td><%= objeto1.lugar_destino%></td>
+            <td><%= objeto1.lugar_origen%></td>
+            <td><%= objeto1.tipo_vuelo%></td>
+            <td><%= objeto2.fecha_salida%></td>
+            <td><%= objeto2.costo_boleto%></td>
+            <td><%= objeto2.puerta_abordaje%></td>
+            <td><%= objeto3.numero_asiento_reservado%></td>
+            <td><%= objeto3.tipo_asiento_reservado%></td>
+        </tr>
+                <% } ) %>
+        <% } ) %>
+    <% } ) %>
+
+
+</table>
+
+    <button>Pagar</button>
+
+</form>

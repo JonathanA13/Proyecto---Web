@@ -1,0 +1,16 @@
+<h1>Datos del viaje</h1>
+
+<% const existeid = typeof id != 'undefined'%>
+
+<form action="<%= existeid ? '/asiento/vista/reservarAsientos/'+id :'/escalas/vista/reservarAsientos/null'%>" method="POST">
+
+    <label for="pasajerosID">Pasajeros:</label>
+    <input id="pasajerosID " type="number" name="numero_asiento_reservado">
+    <br>
+    <label for="claseID">Clase:</label>
+    <input id="claseID" type="text" name="tipo_asiento_reservado" >
+    <br>
+    <button>Reservar</button>
+
+</form>
+
