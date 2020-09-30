@@ -6,7 +6,7 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put, Query, Res
+    Post, Put, Query, Res, Session
 } from "@nestjs/common";
 
 import {VueloService} from "./vuelo.service";
@@ -17,6 +17,7 @@ import {validate, ValidationError} from "class-validator";
 import {AsientoService} from "../Asientos/asiento.service";
 import {EscalasService} from "../Escalas/escalas.service";
 import {UsuarioService} from "../usuario/usuario.service";
+import {VueloEntity} from "./vuelo.entity";
 
 
 @Controller('vuelo')
@@ -143,10 +144,12 @@ export class VueloController {
 
    @Get('vista/admin')
    async admin(
-       @Res() res
+       @Res() res,
+       @Session() sesion
    ) {
        let resultadoEncontrado
        try {
+           console.log("sesion en viajes",sesion.usuario)
            resultadoEncontrado = await this._vueloService.buscarTodos();
        } catch (error) {
            throw new InternalServerErrorException('Error encontrando vuelos')
@@ -156,6 +159,51 @@ export class VueloController {
                {
                    arreglovuelo: resultadoEncontrado
                })
+       }
+   }
+   @Get('vista/editarViajes/:id')
+   async editarviaje(
+       @Query() parametrosConsulta,
+       @Param() parametrosRuta,
+       @Res() res
+   ) {
+       const id = Number(parametrosRuta.id)
+       let vueloEncontrado;
+       try {
+           vueloEncontrado = await this._vueloService.buscarUno(id);
+       } catch (error) {
+           console.error('Error del servidor');
+           return res.redirect('/vuelo/vista/admin?mensaje=Error buscando carta');
+       }
+       if (vueloEncontrado) {
+           return res.render(
+               'administrar/adminViajes',
+               {
+                   error: parametrosConsulta.error,
+                   vuelo: vueloEncontrado
+               }
+           )
+       } else {
+           return res.redirect('/vuelo/vista/admin?mensaje=Usuario no encontrado');
+       }
+   }
+   @Post('/vista/editarviajes/:id_Vuelo')
+   async editarViajes(
+       @Param() parametrosRuta,
+       @Body() parametrosCuerpo,
+       @Res() res,
+   ) {
+       const vueloEditado = {
+           id_Vuelo: Number(parametrosRuta.id_Vuelo),
+           estado_vuelo: parametrosCuerpo.estado_vuelo,
+
+       } as VueloEntity;
+       try {
+           await this._vueloService.editarUno(vueloEditado);
+           return res.redirect('/vuelo/vista/admin?mensaje=Carta editada');
+       } catch (error) {
+           console.error(error);
+           return res.redirect('/vuelo/vista/admin?mensaje=Error editando carta');
        }
    }
 

@@ -3,20 +3,21 @@ import {
     IsAlpha,
     MaxLength,
     IsDate,
-    IsDecimal
+    IsDecimal, IsAlphanumeric
 } from "class-validator";
 
 export class PagosCreateDto {
 
-    @IsDecimal()
-    monto_total
+
     @IsAlpha()
     tipo_pago
-    @IsAlpha()
+
+    @IsAlphanumeric()
     numero_tarjeta
-    @IsAlpha()
+
+    @IsAlphanumeric()
     @MaxLength(3)
     digito_seguridad
-    @IsDate()
-    fecha_caducidad
+
+
 }

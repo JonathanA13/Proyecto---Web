@@ -6,16 +6,20 @@ import {
     InternalServerErrorException,
     Param,
     Post,
-    Put
+    Put, Res
 } from "@nestjs/common";
 import {CabeceraReservaService} from "./cabeceraReserva.service";
+import {UsuarioService} from "../usuario/usuario.service";
+import {VueloService} from "../Vuelo/vuelo.service";
 
 @Controller('cabeceraReserva')
 
 export class CabeceraReservaController {
 
     constructor(
-        private readonly _cabeceraService: CabeceraReservaService
+        private readonly _cabeceraService: CabeceraReservaService,
+    private readonly _usuarioService: UsuarioService,
+        private readonly _vueloService: VueloService,
     ) {
     }
 
@@ -97,4 +101,36 @@ export class CabeceraReservaController {
             })
         }
     }
+    @Get('vista/reservaAdmin')
+    async reservaAdmin(
+        @Res()res
+    ) {
+        let resultadoEncontrado
+        let resultadoUsuario
+        let resultadovuelo
+        try {
+            resultadoEncontrado = await this._cabeceraService.buscarTodosRelacio();
+            console.log("cabcera",resultadoEncontrado)
+            resultadoUsuario=await  this._usuarioService.buscarusuariocabecera();
+            console.log("uuario",resultadoUsuario)
+
+            resultadovuelo=await this._vueloService.buscarvueloasientos()
+            console.log("uuario",resultadovuelo)
+
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando vuelos')
+        }
+        if (resultadoEncontrado) {
+
+            res.render('administrar/adminReservas',
+                {
+                    arreglocabecera: resultadoEncontrado,
+                    arreglovuelo:resultadovuelo,
+                    arreglousuario:resultadoUsuario
+
+
+                })
+        }
+    }
+
 }
