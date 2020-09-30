@@ -6,13 +6,20 @@ import {
     InternalServerErrorException, NotFoundException,
     Param,
     Post,
-    Put, Query, Res
+    Put, Query, Res, Session
 } from "@nestjs/common";
 import {ReservaService} from "./reserva.service";
 import {BoletosService} from "../Boletos/boletos.service";
 import {AsientoService} from "../Asientos/asiento.service";
 import {VueloService} from "../Vuelo/vuelo.service";
 import {log} from "util";
+import {UsuarioCreateDto} from "../usuario/dtoUsuario/usuario.create-dto";
+import {UsuarioService} from "../usuario/usuario.service";
+import {CabeceraReservaCreateDto} from "../CabeceraReserva/dtoCabeceraReserva/cabeceraReserva.create-dto";
+import {CabeceraReservaService} from "../CabeceraReserva/cabeceraReserva.service";
+import {ReservaCreateDto} from "./dtoReserva/reserva.create-dto";
+import {BoletosEntity} from "../Boletos/boletos.entity";
+import {VueloEntity} from "../Vuelo/vuelo.entity";
 
 @Controller('reserva')
 
@@ -22,7 +29,9 @@ export class ReservaController {
         private readonly _reservaService: ReservaService,
         private readonly _boletoService: BoletosService,
         private readonly _vueloService: VueloService,
-        private readonly _asientoService: AsientoService
+        private readonly _asientoService: AsientoService,
+        private readonly _usuarioService: UsuarioService,
+        private readonly _cabeceraReservaService: CabeceraReservaService,
     ) {
     }
 
@@ -199,23 +208,40 @@ export class ReservaController {
         console.log("************************************", id_vuelo)
         const id_asiento = Number(parametrosruta.id_Asiento)
         console.log("************************************", id_asiento)
+
         let respuesta1
         let respuesta2
         let respuesta3
+        let respuesta4
         try {
             respuesta1 = await this._boletoService.buscarUno(id_boleto)
             respuesta2 = await this._vueloService.buscarUno(id_vuelo)
             respuesta3 = await this._asientoService.buscarUno(id_asiento)
 
+
             console.log("LLega hasta aquí el arreglo *************", respuesta1)
             console.log("LLega hasta aquí el arreglo *************", respuesta2)
             console.log("LLega hasta aquí el arreglo *************", respuesta3)
+
 
         } catch (error) {
             throw new InternalServerErrorException('Error encontrando destino')
         }
         if (respuesta1 && respuesta2 && respuesta3) {
             console.log("AQUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUIIIIIII")
+            const boletoEditando = {
+                id_Boleto:id_boleto,
+                asiento:parametrosruta.id_Asiento
+            } as BoletosEntity;
+            respuesta4=await this._boletoService.editarUno(boletoEditando)
+            const vueloEditando = {
+                id_Vuelo:id_vuelo,
+                asientos_diponibles:respuesta2.asientos_diponibles-respuesta3.numero_asiento_reservado,
+                asientos_ocupados:respuesta2.asientos_ocupados+respuesta3.numero_asiento_reservado
+            } as VueloEntity;
+            const respuesta5=await this._vueloService.editarUno(vueloEditando)
+            console.log("LLega hasta aquí el arreglo *************", respuesta4)
+            console.log("LLega hasta aquí el arreglo *************", respuesta5)
             res.render(
                 'pagos/datosPago',
                 {
@@ -229,6 +255,75 @@ export class ReservaController {
             throw new NotFoundException('No se encontraron viajes')
         }
         //const
+
+    }
+    @Post('vista/reservarVuelo/:id_Boleto/:id_Vuelo/:id_Asiento')
+    async reservarVuelo(
+        @Body() paramentroscuerpo,
+        @Res() res,
+        @Session() sesions,
+        @Param() parametroruta
+    ) {
+        const cabecera = paramentroscuerpo
+        const estado = cabecera.estado_reserva
+        const observaciones = cabecera.observaciones
+        console.log("usuario",sesions.usuario)
+        const obtenerusuario = await this._usuarioService.buscarnombre(sesions.usuario);
+        console.log("usuario",obtenerusuario)
+        const idUsuario=obtenerusuario.id_usuario
+
+        const cabeceradto = new CabeceraReservaCreateDto()
+        cabeceradto.estadoReserva=estado
+        cabeceradto.observaciones=observaciones
+        cabecera.usuario=idUsuario
+        const reserva=paramentroscuerpo
+        const fechaReserva=reserva.fecha_reserva
+        const tipo=reserva.tipo
+        const id_asiento=parametroruta.id_Asiento
+
+        reserva.asiento=id_asiento
+        const reservadto=new ReservaCreateDto()
+        reservadto.fechaReserva=fechaReserva
+        reservadto.tipo=tipo
+
+        let cabeceraReserva;
+        try {
+            cabeceraReserva = await this._cabeceraReservaService.crearUno(cabecera);
+        } catch (errores) {
+            console.error("error de try ", errores)
+            const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+            return res.redirect('/vista/datos/'+parametroruta.id_Boleto+'/'+parametroruta.id_Vuelo+'/'+parametroruta.id_Asiento+'?error=' + mensajeError)
+        }
+        console.log('usuario creado', cabeceraReserva)
+        if (cabeceraReserva) {
+            const idcabecera = cabeceraReserva.id_cabecera_reserva
+            console.log("ID USUARIO", idcabecera)
+            reserva.cabeceraReserva = idcabecera
+            let respuestareserva;
+            try {
+                respuestareserva = await this._reservaService.crearUno(reserva);
+            } catch (error) {
+                console.error(error);
+                const mensajeError = 'Error al registrar el usuario'
+                return res.redirect('/vista/datos/'+parametroruta.id_Boleto+'/'+parametroruta.id_Vuelo+'/'+parametroruta.id_Asiento+'?error=' + mensajeError)
+            }
+            console.log('rol usuario creado', respuestareserva)
+
+            if (respuestareserva) {
+                return res.redirect('/pagos/vista/pagar/'+parametroruta.id_Boleto+'/'+parametroruta.id_Vuelo+'/'+parametroruta.id_Asiento);
+
+                if (respuestareserva) {
+                    return res.redirect('/pagos/vista/pagar/'+parametroruta.id_Boleto);
+
+                } else {
+                    const mensajeError = 'Error al registrar el rol usuario'
+                    return res.redirect('/vista/datos/'+parametroruta.id_Boleto+'/'+parametroruta.id_Vuelo+'/'+parametroruta.id_Asiento+'?error=' + mensajeError)
+                }
+            } else {
+                const mensajeError = 'Error al registrar el usuario'
+                return res.redirect('/vista/datos/'+parametroruta.id_Boleto+'/'+parametroruta.id_Vuelo+'/'+parametroruta.id_Asiento+'?error=' + mensajeError)
+            }
+        }
 
     }
 

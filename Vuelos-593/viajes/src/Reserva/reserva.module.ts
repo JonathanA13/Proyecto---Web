@@ -8,13 +8,17 @@ import {AsientoService} from "../Asientos/asiento.service";
 import {BoletosService} from "../Boletos/boletos.service";
 import {VueloModule} from "../Vuelo/vuelo.module";
 import {AsientoModule} from "../Asientos/asiento.module";
+import {UsuarioModule} from "../usuario/usuario.module";
+import {CabeceraReservaModule} from "../CabeceraReserva/cabeceraReserva.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([ReservaEntity], 'default'),
         BoletosModule,
         VueloModule,
-        AsientoModule
+        AsientoModule,
+        UsuarioModule,
+        CabeceraReservaModule
     ],
     controllers: [
         ReservaController

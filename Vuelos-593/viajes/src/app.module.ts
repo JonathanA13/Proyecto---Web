@@ -42,7 +42,7 @@ import {VueloModule} from "./Vuelo/vuelo.module";
     host: 'localhost',//ip
     port: 3306,//puerto
     username: 'root', //usuario
-    password: 'root',//password
+    password: 'root123',//password
     database: 'Vuelos',//base de datos
     entities: [
       AsientoEntity,

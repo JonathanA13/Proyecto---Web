@@ -1,44 +1,77 @@
-main {
-    padding: 1em;
+body{
+    background-image: url("https://i.pinimg.com/564x/ac/84/07/ac8407e2df994698b664366401b0f4da.jpg");
+    font-family: "Century Gothic";
+    font-size: 20px;
 }
 
-.table-wrapper {
-    overflow: auto;
-    max-width: 100%;
-    background:
-            linear-gradient(to right, white 30%, rgba(255,255,255,0)),
-            linear-gradient(to right, rgba(255,255,255,0), white 70%) 0 100%,
-            radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
-            radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
-    background-repeat: no-repeat;
-    background-color: white;
-    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
-    background-position: 0 0, 100%, 0 0, 100%;
-    background-attachment: local, local, scroll, scroll;
+#main-container{
+    margin: 150px auto;
+    width: 600px;
 }
 
-tr {
-    border-bottom: 1px solid;
-}
-
-th {
-    background-color: #555;
-    color: #fff;
-    white-space: nowrap;
-}
-
-th,
-td {
+table{
+    background-color: lightblue;
     text-align: left;
-    padding: 0.5em 1em;
+    border-collapse: collapse;
+    width: 100%;
+
 }
 
-.numeric {
-    text-align: right;
+th, td{
+    padding: 30px;
+    font-size: 20px;
+    text-align: center;
 }
 
-p {
-    text-align: right;
-    margin-top: 1em;
-    font-style: italic;
+thead{
+    background-color: #246355;
+    border-bottom: solid 5px #0F362D;
+    color: lightseagreen;
+}
+
+tr:nth-child(even){
+    background-color: whitesmoke;
+}
+
+tr:hover td{
+    background-color: darkolivegreen;
+    color: white;
+}
+button{
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 18px;
+    font-family: "Century Gothic";
+    color: white;
+    background-color: darkgray;
+    border-radius: 12px;
+    border: 3px double black;
+}
+button:hover{
+    opacity: 0.6;
+    text-decoration: none;
+}
+.controls {
+    width: 25%;
+    background: #24303c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 18px;
+    color: white;
+}
+.clientes .botons {
+    width: 25%;
+    background: #1f53c5;
+    border: none;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
 }

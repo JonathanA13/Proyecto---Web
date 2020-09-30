@@ -7,8 +7,14 @@ import {PagosEntity} from "../Pagos/pagos.entity";
 export class BoletosEntity {
     @PrimaryGeneratedColumn()
     id_Boleto:number
-    @Column()
+
+    @Column(
+        {
+            nullable: false,
+        }
+    )
     fecha_salida?: Date
+
     @Column({
         name: 'costo',
         type: 'double',
