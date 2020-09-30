@@ -43,7 +43,9 @@ export class VueloService {
         }
         return this.repository.find(consulta)
     }
-
+buscarvueloasientos(){
+    return this.repository.find( {relations:["asientos"]})
+}
 
 
 }

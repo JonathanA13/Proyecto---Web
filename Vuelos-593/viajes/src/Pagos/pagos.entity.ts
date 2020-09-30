@@ -6,9 +6,10 @@ export class PagosEntity {
     @PrimaryGeneratedColumn()
     id_Pago:number
     @Column({
-        type: 'double',
+        nullable: false,
+        default:0.00
     })
-    monto_total?: Double
+    monto_total?: number
     @Column(
         {
             type: 'varchar',
@@ -37,7 +38,7 @@ export class PagosEntity {
     digito_seguridad:string
 
     @Column()
-    fecha_caducidad:Date
+    fecha_caducidad:string
 
     @ManyToOne(
         type => BoletosEntity,
