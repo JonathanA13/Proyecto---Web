@@ -19,6 +19,11 @@ export class CabeceraReservaService {
     buscarTodos(){
         return this.repositorio.find()
     }
+    buscarTodosRelacio(){
+        return this.repositorio.find({
+            relations:["reservas","reservas.asiento"]
+        })
+    }
 
     buscarUno(id: number){
         return this.repositorio.findOne(id)
@@ -31,4 +36,5 @@ export class CabeceraReservaService {
     eliminarUno(id: number){
         return this.repositorio.delete(id)
     }
+
 }

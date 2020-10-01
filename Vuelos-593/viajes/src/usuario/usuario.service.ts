@@ -23,6 +23,18 @@ export class UsuarioService {
     buscarUno(id: number){
         return this.repositorio.findOne(id)
     }
+
+    buscarnombre(nombre: string){
+        let buscarcontraenia:FindManyOptions<UsuarioEntity>
+        buscarcontraenia={
+            where:{
+                nombre_usuario:Equal(nombre)
+
+
+            }
+        }
+        return this.repositorio.findOne(buscarcontraenia)
+    }
     buscarLogincontrasenia(login_contrasenia:string,login_correo:string){
        console.log("contrasenia",login_contrasenia)
         let buscarcontraenia:FindManyOptions<UsuarioEntity>
@@ -45,6 +57,9 @@ export class UsuarioService {
             correo_usuario:Equal(correo),
             contrasenia:Equal(contraseniarol)
         }})
+    }
+    buscarusuariocabecera(){
+        return this.repositorio.find( {relations:["cabeceraReservas"]})
     }
 
 

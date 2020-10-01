@@ -11,7 +11,6 @@ export class ReservaCreateDto {
     @IsNotEmpty()
     tipo: String;
 
-    @IsDate()
-    horaAbordaje: String;
+
 
 }

@@ -137,7 +137,10 @@ export class BoletosController {
         @Res() res,
         @Body() paramentroscuerpo
     ) {
-        const fecha_salida = paramentroscuerpo.fecha_salida
+        function convertDateFormat(string) {
+            return string.split('/').reverse().join('-');
+        }
+        const fecha_salida = convertDateFormat(paramentroscuerpo.fecha_salida)
         const costo = paramentroscuerpo.costo_boleto
         const puerta=paramentroscuerpo.puerta_abordaje
 

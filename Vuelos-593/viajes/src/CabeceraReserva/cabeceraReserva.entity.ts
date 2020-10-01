@@ -11,6 +11,7 @@ export class CabeceraReservaEntity {
         {
             type: 'varchar',
             nullable: false,
+            default:'Activo'
 
         }
     )
@@ -20,6 +21,7 @@ export class CabeceraReservaEntity {
         {
             type: 'varchar',
             nullable: false,
+            default:'Ninguna'
 
         }
     )
