@@ -327,10 +327,12 @@ export class VueloController {
     @Get('vista/datosViaje/:id')
     datosViaje(
         @Res() res,
-        @Param() parametrosruta
+        @Param() parametrosruta,
+        @Query() parametrosConsulta
     ) {
         const id_Vuelo = Number(parametrosruta.id)
         return res.render('viajes/datosViaje', {
+            error: parametrosConsulta.error,
             id:id_Vuelo
         })
 
