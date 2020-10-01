@@ -6,24 +6,14 @@
 }
 
 body {
-    background-image: url('https://i.pinimg.com/564x/ac/84/07/ac8407e2df994698b664366401b0f4da.jpg');
+    background-image: url('https://www.xtrafondos.com/wallpapers/ala-de-un-avion-88.jpg');
 }
 
 
-.clientes {
-    width: 70%;
-    background: #24303c;
-    padding: 30px;
-    margin: auto;
-    margin-top: 100px;
-    border-radius: 4px;
-    font-family: 'calibri';
-    color: white;
-    box-shadow: 7px 13px 37px #000;
-}
+
 
 .clientes h4 {
-    font-size: 22px;
+    font-size: 30px;
     margin-bottom: 20px;
 }
 
@@ -60,13 +50,14 @@ body {
     width: 100%;
     background: #1f53c5;
     border: none;
-    padding: 12px;
+    padding: 20px;
     color: white;
     margin: 16px 0;
     font-size: 16px;
 
 
 }
+
 button{
 
     background-color:darkred;
