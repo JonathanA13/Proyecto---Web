@@ -145,7 +145,8 @@ export class VueloController {
    @Get('vista/admin')
    async admin(
        @Res() res,
-       @Session() sesion
+       @Session() sesion,
+       @Query() parametrosConsulta
    ) {
        let resultadoEncontrado
        try {
@@ -157,6 +158,7 @@ export class VueloController {
        if (resultadoEncontrado) {
            res.render('vuelo/crearViajesAdmin',
                {
+                   error: parametrosConsulta.error,
                    arreglovuelo: resultadoEncontrado
                })
        }
@@ -173,7 +175,8 @@ export class VueloController {
            vueloEncontrado = await this._vueloService.buscarUno(id);
        } catch (error) {
            console.error('Error del servidor');
-           return res.redirect('/vuelo/vista/admin?mensaje=Error buscando carta');
+           const mensajeError = 'Error validando datos'
+           return res.redirect('/vuelo/vista/admin?error=' + mensajeError);
        }
        if (vueloEncontrado) {
            return res.render(
@@ -184,7 +187,8 @@ export class VueloController {
                }
            )
        } else {
-           return res.redirect('/vuelo/vista/admin?mensaje=Usuario no encontrado');
+           const mensajeError = 'Usuario no encontrado'
+           return res.redirect('/vuelo/vista/admin?mensaje=' + mensajeError);
        }
    }
    @Post('/vista/editarviajes/:id_Vuelo')
@@ -203,7 +207,8 @@ export class VueloController {
            return res.redirect('/vuelo/vista/admin?mensaje=Carta editada');
        } catch (error) {
            console.error(error);
-           return res.redirect('/vuelo/vista/admin?mensaje=Error editando carta');
+           const mensajeError = 'Error editando'
+           return res.redirect('/vuelo/vista/admin?mensaje=' + mensajeError);
        }
    }
 
@@ -244,10 +249,9 @@ export class VueloController {
    @Post('adminViajesVista')
 
        async viajesVista(
-           @Body()
-               parametrosCuerpo,
-           @Res()
-               res
+           @Body() parametrosCuerpo,
+           @Res()res,
+           @Param() parametrosRuta
        ) {
            const asientosDisponibles = parametrosCuerpo.asientos_diponibles;
            const asientosOcupadaos = parametrosCuerpo.asientos_ocupados;
@@ -269,7 +273,7 @@ export class VueloController {
                if (errores.length > 0) {
 
                    console.error("error de try ", errores)
-                   const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                   const mensajeError = 'Error Validando Datos'
                    return res.redirect('/vuelo/vista/adminViajes?error=' + mensajeError)
 
                } else {
@@ -292,7 +296,7 @@ export class VueloController {
 
            } catch (e) {
                console.error('Error', e)
-               const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+               const mensajeError = 'ERROR EN VALIDACIÓN'
                return res.redirect('vuelo/vista/adminViajes?error=' + mensajeError)
            }
        }
