@@ -28,6 +28,10 @@
 <%}%>
 <body>
 
+<% if(typeof error != 'undefined') {%>
+<p>MENSAJE ERROR: <%=error%></p>
+<%}%>
+
 <section class="viajes">
 <form action="<%= existevuelo ? '/vuelo/vista/editarviajes/'+vuelo.id_Vuelo: '/adminViajesVista'%>" method="POST">
     <label for="asientosdiponiblesID">Asientos diponibles:</label>
@@ -67,7 +71,7 @@
         <option value="cancelado">Cancelado</option>
         <option value="atrasado">Atrasado</option>
     </select>
-<%console.log("buscando....",estado_vuelo)%>
+
 
     <br>
     <label for="tipo_vueloID">Tipo de vuelo:</label>

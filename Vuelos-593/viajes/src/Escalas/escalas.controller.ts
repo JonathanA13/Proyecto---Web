@@ -149,7 +149,7 @@ export class EscalasController {
             if (errores.length > 0) {
 
                 console.error("error de try ", errores)
-                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                const mensajeError = 'ERROR Validando datos'
                 return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
 
             } else {
@@ -174,7 +174,7 @@ export class EscalasController {
 
         } catch (e) {
             console.error('Error', e)
-            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+            const mensajeError = 'ERROR EN VALIDACIÓN'
             return res.redirect('/vuelo/vista/adminEscalas/' + idVuelo + '?error=' + mensajeError)
 
 
