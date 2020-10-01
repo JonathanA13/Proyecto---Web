@@ -56,7 +56,7 @@ button:hover{
     text-decoration: none;
 }
 .controls {
-    width: 25%;
+    width: 100%;
     background: #24303c;
     padding: 10px;
     border-radius: 4px;

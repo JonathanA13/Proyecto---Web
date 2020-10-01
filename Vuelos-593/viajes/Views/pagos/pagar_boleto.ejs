@@ -1,4 +1,6 @@
 <%- include('../compartido/menu/menuCliente')%>
+
+<link rel="stylesheet" href="/css/tabla.css">
 <body>
 <section class="clientes">
     <form action="/pagos/pagarVista/<%= arregloBoleto.id_Boleto%>/ <%= arregloAsiento.numero_asiento_reservado*arregloBoleto.costo_boleto%>/<%= arregloVuelo.id_Vuelo%>/<%= arregloAsiento.id_Asiento%>" method="POST">
@@ -51,7 +53,13 @@
                 <td>
                     <%= usuario.correo_usuario%>
                 </td>
+                <td></td>
+                <td><td>
+                    <button type="submit">Pagar boleto</button>
+                </td></td>
             </tr>
+        </table>
+        <table>
             <tr>
                 <td>
                     Origen
@@ -81,11 +89,7 @@
                 </td>
 
             </tr>
-            <tr>
-                <td>
-                    <button type="submit">Pagar boleto</button>
-                </td>
-            </tr>
+
 
 
 
