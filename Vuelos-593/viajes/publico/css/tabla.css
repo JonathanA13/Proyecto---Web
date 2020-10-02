@@ -1,5 +1,5 @@
 body{
-    background-image: url("https://i.pinimg.com/564x/ac/84/07/ac8407e2df994698b664366401b0f4da.jpg");
+
     font-family: "Century Gothic";
     font-size: 20px;
 }
@@ -11,9 +11,13 @@ body{
 
 table{
     background-color: lightblue;
-    text-align: left;
+    text-align: center;
     border-collapse: collapse;
-    width: 100%;
+    width: 70%;
+    align-content: center;
+    align-self: center;
+    align-items: center;
+
 
 }
 
@@ -67,7 +71,7 @@ button:hover{
     color: white;
 }
 .clientes .botons {
-    width: 25%;
+    width: 70%;
     background: #1f53c5;
     border: none;
     padding: 12px;
@@ -75,3 +79,4 @@ button:hover{
     margin: 16px 0;
     font-size: 16px;
 }
+
