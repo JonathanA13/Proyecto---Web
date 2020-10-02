@@ -193,7 +193,7 @@ export class RolUsuarioController {
             usuarioCreado = await this._usuarioService.crearUno(usuariorol);
         } catch (errores) {
             console.error("error de try ", errores)
-            const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+            const mensajeError = 'Error validando datos'
             return res.redirect('/usuario/vista/registrar?error=' + mensajeError)
         }
         console.log('usuario creado', usuarioCreado)
@@ -234,9 +234,9 @@ export class RolUsuarioController {
     @Post('loginVista')
     async loginVista(
             @Body() paramentroscuerpo,
-        @Res() res,
-            @Session() session
-
+            @Res() res,
+            @Session() session,
+            @Param() parametrosRuta
     )
         {
             const correo = paramentroscuerpo.correo_usuario
@@ -256,7 +256,7 @@ export class RolUsuarioController {
 
             } catch (error) {
                 console.error(error);
-                const mensajeError = 'Error al iniciar sesion el usuario'
+                const mensajeError = 'Usuario o contraseña incorrectos'
                 return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
             }
             if (respuetabusqueda) {
@@ -287,7 +287,7 @@ export class RolUsuarioController {
 
                 }
             } else {
-                const mensajeError = 'Error al iniciar sesion'
+                const mensajeError = 'Usuario o contraseña incorrectos'
                 return res.redirect('/usuario/vista/iniciar?error=' + mensajeError)
             }
         }

@@ -137,7 +137,15 @@ export class BoletosController {
         @Res() res,
         @Body() paramentroscuerpo
     ) {
-        const fecha_salida = paramentroscuerpo.fecha_salida
+
+        const boleto=paramentroscuerpo;
+        console.log("estooooooooooooooo", boleto)
+        function convertDateFormat(string) {
+            return string.split('/').reverse().join('-');
+        }
+
+        const fecha_salida = convertDateFormat(boleto.fecha_salida)
+
         const costo = paramentroscuerpo.costo_boleto
         const puerta=paramentroscuerpo.puerta_abordaje
 
@@ -151,7 +159,7 @@ export class BoletosController {
             if (errores.length > 0) {
 
                 console.error("error de try ", errores)
-                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                const mensajeError = 'Error validando datos'
                 return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
 
             } else {
@@ -176,7 +184,7 @@ export class BoletosController {
 
         } catch (e) {
             console.error('Error', e)
-            const mensajeError = 'ERROR EN VALIDACIÓN en catch'
+            const mensajeError = 'ERROR EN VALIDACIÓN '
             return res.redirect('/vuelo/vista/adminBoleto/?error=' + mensajeError)
 
 

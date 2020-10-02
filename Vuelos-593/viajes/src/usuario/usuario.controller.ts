@@ -6,7 +6,7 @@ import {
     InternalServerErrorException,
     Param,
     Post,
-    Put, Res
+    Put, Query, Res
 } from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dtoUsuario/usuario.create-dto";
@@ -119,9 +119,12 @@ export class UsuarioController {
 
     @Get('vista/iniciar')
     iniciar(
-        @Res() res
+        @Res() res,
+        @Query() parametrosConsulta
     ){
-        res.render('usuario/login')
+        res.render('usuario/login', {
+            error: parametrosConsulta.error
+        })
     }
 
     @Get('vista/registrar')

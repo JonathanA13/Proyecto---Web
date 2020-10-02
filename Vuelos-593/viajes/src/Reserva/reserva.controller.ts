@@ -20,6 +20,7 @@ import {CabeceraReservaService} from "../CabeceraReserva/cabeceraReserva.service
 import {ReservaCreateDto} from "./dtoReserva/reserva.create-dto";
 import {BoletosEntity} from "../Boletos/boletos.entity";
 import {VueloEntity} from "../Vuelo/vuelo.entity";
+import {isDateString} from "class-validator";
 
 @Controller('reserva')
 
@@ -277,7 +278,13 @@ export class ReservaController {
         cabeceradto.observaciones=observaciones
         cabecera.usuario=idUsuario
         const reserva=paramentroscuerpo
-        const fechaReserva=reserva.fecha_reserva
+        function convertDateFormat(string) {
+            return string.split('/').reverse().join('-');
+        }
+        const fechaReserva= convertDateFormat(reserva.fecha_reserva)
+        console.log(fechaReserva)
+
+
         const tipo=reserva.tipo
         const id_asiento=parametroruta.id_Asiento
 

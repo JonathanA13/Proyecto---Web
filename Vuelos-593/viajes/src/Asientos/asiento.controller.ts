@@ -146,7 +146,7 @@ export class AsientoController {
             if (errores.length > 0) {
 
                 console.error("error de try ", errores)
-                const mensajeError = 'ERROR EN VALIDACIÓN despues de try'
+                const mensajeError = 'Error validando datos'
                 return res.redirect('/vuelo/vista/datosViaje/' + id_vuelo + '?error=' + mensajeError)
 
             } else {

@@ -205,7 +205,10 @@ async tarjeta(
     console.log("************************************", monto)
     const numTarjeta = pago.numero_tarjeta
     const digito = pago.digito_seguridad
-    const caducidad = pago.fecha_caducidad
+    function convertDateFormat(string) {
+        return string.split('/').reverse().join('-');
+    }
+    const caducidad = convertDateFormat(pago.fecha_caducidad)
     console.log("************************************",caducidad)
     pago.boleto = id_boleto
     pago.monto_total=monto
